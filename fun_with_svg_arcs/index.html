@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Progress Meters and Load Spinners with SVG</title>
+		<meta name="description" content="The HTML5 Herald">
+		<meta name="author" content="David Linke">
+		<link rel="stylesheet" href="css/styles.css?v=1.0">
+		<script src="http://code.jquery.com/jquery-2.0.0.min.js" type="text/javascript"></script>
+		<script src="fun_with_svg_arcs.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function(){
+				// with this code we create the expanding/contracting spinner
+				timex=0;
+				$.d('timexInt',setInterval(function() {
+					timex++;
+					var a = {pathStrokeWidth:5};
+					if (timex==721) timex = 1;
+					if (timex < 361){
+						a.startAng = 0;
+						a.endAng = timex;
+					} else {
+						a.startAng = timex-360;
+						a.endAng = 360;
+					};
+					
+					$('#timex').drawCircle(a);
+				}, 1));
+				
+				// with this code we create the fixed size arc spinner
+				casio = 0;
+				$.d('casioInt',setInterval(function(){
+					casio++;
+					var a={pathStrokeWidth:5};
+					if (casio==361) casio = 1;
+					a.startAng = casio;
+					a.endAng = casio + 90;
+					
+					$('#casio').drawCircle(a);
+				},1));
+				
+				//with this code we create the controllable spinner
+				var meterArgs = {
+					startAng: 0,
+					endAng: 30,
+					pathStrokeWidth:5
+				}
+				$('#meter').drawCircle(meterArgs);
+				$('#contract').click(function(){
+					meterArgs.endAng = meterArgs.endAng-5;
+					$('#meter').drawCircle(meterArgs);
+				});
+				$('#expand').click(function(){
+					meterArgs.endAng = meterArgs.endAng+5;
+					$('#meter').drawCircle(meterArgs);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h2>Spinner with expanding and contracting motion</h2>
+		<div id="timex"></div>
+		
+		<h2>Spinner based on a fixed arc</h2>
+		<div id="casio"></div>
+		
+		<h2>Arc with controllable size</h2>
+		<div id="meter"></div>
+		<button type="button" id="contract">Contract</button> <button type="button" id="expand">Expand</button>
+	</body>
+</html>
