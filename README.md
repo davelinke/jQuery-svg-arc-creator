@@ -1,4 +1,4 @@
-goodies
-=======
+jQuery SVG arc creator
+======================
 
-The storage of my contributions to the web.
+This scripts allows you to create SVG arcs/circles by scripting. It also allows you to create circular loading animations by setting a simple timeout.
